@@ -1,0 +1,5 @@
+pkg: vsftpd
+myuser: testing
+mypass: testing
+webroot: /var/www/html
+myurl: https://www.w3schools.com/jsref/prop_option_index.asp

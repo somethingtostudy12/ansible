@@ -1,0 +1,35 @@
+- name: Example of list of hash loop
+  hosts: all
+  vars:
+    myusers:
+      - name: user21
+        group: admin
+        pw: user21
+
+      - name: user22
+        group: hr
+        pw: user22
+          
+      - name: user23
+        group: finance
+        pw: user23
+  
+  tasks:
+ 
+  - name: Create Groups
+    group:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - admin
+      - hr
+      - finance
+
+  - name: Add users in different group
+    user:
+      name: "{{ item.name }}"
+      group: "{{ item.group }}"
+      password: "{{ item.pw | password_hash ('sha512') }}"
+      state: present
+    with_items:
+      - "{{ myusers }}"

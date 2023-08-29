@@ -1,0 +1,5 @@
+myuser: user1
+mypass: qwerty
+mypkg:
+  - httpd
+  - elinks

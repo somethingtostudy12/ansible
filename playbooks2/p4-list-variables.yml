@@ -1,0 +1,14 @@
+## Defining a listing varibles
+
+- name: Example of Listing Varibales
+  hosts: all
+  vars:
+    mypkg:
+      - vsftpd
+      - httpd
+      - ftp
+  tasks:
+  - name: Install multiple packages
+    package:
+       name: "{{ mypkg }}"
+       state: installed

@@ -1,0 +1,24 @@
+- name: Example of list of hash loop
+  hosts: all
+  vars_files:
+      - /root/loops/myusers.yml
+
+  tasks:
+  
+  - name: Create Groups
+    group:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - admin
+      - hr
+      - finance
+
+  - name: Add users in different group
+    user:
+      name: "{{ item.name }}"
+      group: "{{ item.group }}"
+      password: "{{ item.pw | password_hash ('sha512') }}"
+      state: present
+    with_items:
+      - "{{ myusers }}"

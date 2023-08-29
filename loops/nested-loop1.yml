@@ -1,0 +1,22 @@
+- name: Exampe of Nested loop
+  hosts: all
+  vars_files:
+    - /root/loops/list-nested.yml
+  tasks:
+
+  - name: First add three groups
+    group:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      -  "{{ mygroups }}"
+
+  - name: add users to all groups
+    user:
+      name: "{{ item[0] }}"
+      group: "{{ item[1] }}"
+      append: yes
+      state: present
+    with_nested:
+      - "{{ myusers }}"
+      - "{{ mygroups }}"

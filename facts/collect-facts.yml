@@ -1,0 +1,10 @@
+### Example of facts
+- name:
+  hosts: all
+  gather_facts: true
+  tasks:
+  
+  - name: Store kernel information in /etc/motd file
+    copy:
+      content: "{{ ansible_kernel }}"
+      dest: /etc/motd

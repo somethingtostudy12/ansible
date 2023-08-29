@@ -1,0 +1,23 @@
+- name: Example of Notify and Handlers
+  hosts: all
+  tasks:
+
+  - name: Update ssh configuration file
+    lineinfile:
+      line: "### Lines added by playbook"
+      dest: /etc/ssh/sshd_config
+    notify: service-reload
+
+  - name: Create a directory
+    file: 
+      path: /tmp/abcde
+      state: directory
+
+
+  handlers:
+ 
+    - name: Reload sshd service 
+      service: 
+         name: sshd
+         state: reloaded
+      listen: service-reload

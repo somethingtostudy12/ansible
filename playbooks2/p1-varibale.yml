@@ -1,0 +1,33 @@
+# Playbooks for defining varibles
+# vars should be defined before tasks
+
+- name: Playbook for Learning Variables
+  hosts: all
+  vars:
+    pkg: vsftpd
+    myuser: testing
+    mypass: testing
+    webroot: /var/www/html
+    myurl: https://www.w3schools.com/jsref/prop_option_index.asp
+  
+  tasks:
+  - name: Install package  
+    yum:
+      name: "{{ pkg }}"
+      state: installed
+
+  - name: Create User
+    user:
+        name: "{{ myuser }}"
+        password: "{{ mypass | password_hash('sha512') }}"
+
+  - name: Create folder
+    file:
+      path: "{{ webroot }}/vijay"
+      state: directory
+
+
+  - name: Download index file
+    get_url:
+      url: "{{ myurl }}"
+      dest: /tmp

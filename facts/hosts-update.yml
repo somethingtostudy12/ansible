@@ -1,0 +1,9 @@
+### Update hostname and IP address in /etc/hosts
+
+- hosts: all
+  gather_facts: true
+  tasks:
+  - name: Add IPAdress and hostname in /etc/hosts
+    lineinfile:
+      line: "{{ ansible_ens160.ipv4.address }}  {{ ansible_fqdn }}"
+      dest: /etc/hosts

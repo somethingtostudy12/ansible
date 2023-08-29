@@ -1,0 +1,17 @@
+- name: Example of conditional tasks
+  hosts: all
+  gather_facts: true
+  tasks:
+  - name: Install httpd package
+    yum: 
+     name: httpd
+     state: installed
+#    when: ansible_os_family == 'Debian'
+    when: 
+      -  ansible_distribution == 'Rocky'
+      -  ansible_distribution_major_version == '7'
+
+  - name: Create a test file
+    file:
+      path: /tmp/testfile
+      state: touch

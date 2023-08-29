@@ -1,0 +1,18 @@
+- name: Start servive where is down and restart where running
+  hosts: all
+  tasks:
+
+  - name: Check Service Status
+    command: systemctl is-active crond
+    register: status
+    ignore_errors: yes
+
+  - debug:
+      var: status.stdout
+
+  - name: Start the service if not running
+    service:
+      name: crond
+      state: started
+      enabled: true
+    when: status.stdout == 'inactive'

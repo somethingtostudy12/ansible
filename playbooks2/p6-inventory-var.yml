@@ -1,0 +1,10 @@
+# Playbooks for defining varibles
+# Varibles defined in inventory 
+
+- name: Playbook for Learning Variables
+  hosts: all
+  tasks:
+  - name: Create User
+    user:
+        name: "{{ myuser }}"
+        password: "{{ mypass | password_hash('sha512') }}"

@@ -1,0 +1,22 @@
+- name: Database update with notify and handlers
+  hosts: all
+  tasks:
+  
+  - name: Copy database scrips
+    copy:
+      src: /root/notify-handlers/install.sh
+      dest: /root
+      mode: 755
+
+  - name: run the scrips
+    shell: /root/install.sh
+    register: output
+    notify: db-restart
+    changed_when: '"updated successfully in output.stdout"'
+
+  handlers:
+  - name: restart db service
+    service:
+       name: sshd
+       state: reloaded
+    listen: db-restart 

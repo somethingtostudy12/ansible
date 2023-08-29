@@ -1,0 +1,10 @@
+# Playbooks for defining varibles
+# Varibles defined in inventory but in host and group folders 
+
+- name: Playbook for Learning Variables
+  hosts: al
+  tasks:
+  - name: Install package
+    package:
+      name: "{{ mypkg }}"
+      state: installed

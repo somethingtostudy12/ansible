@@ -1,0 +1,11 @@
+myusers:
+      - name: user21
+        group: admin
+        pw: user21
+      - name: user22
+        group: hr
+        pw: user22
+      - name: user23
+        group: finance
+        pw: user23
+

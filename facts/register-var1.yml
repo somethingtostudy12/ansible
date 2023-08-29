@@ -1,0 +1,18 @@
+## Example of register variables
+
+- hosts: all
+  gather_facts: true
+  tasks:
+
+  - name: check file existence
+    stat:
+      path: /etc/motd
+    register: motd
+
+  - debug:
+      var: motd.stat.exists
+
+  - name: Write state of file.
+    copy:
+      content: "Your file state is {{ motd.stat.exists }}"
+      dest: /etc/motd

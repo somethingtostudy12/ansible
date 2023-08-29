@@ -1,0 +1,17 @@
+- name: Deploying Tasks on ROCKY9 Servers
+  hosts: rocky9
+  gather_facts: no
+  tasks:
+
+    - name: Creating a Directory
+      file:
+          path: /tmp/data1
+          state: directory
+
+    - name: Creating a file
+      file:
+          path: /tmp/data2
+          state: touch
+          mode: '755'
+          owner: ansible
+          group: root

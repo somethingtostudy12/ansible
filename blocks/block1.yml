@@ -1,0 +1,28 @@
+- name: Deploying web server
+  hosts: all
+  gather_facts: true
+  tasks:
+   
+  - block:
+      - name: Creating a directory
+        file:
+           path: /tmp/abcde
+           state: directory
+
+      - name: Copy /etc/fstab to /tmp/data
+        copy:
+          src: /etc/fstab
+          dest: /tmp/data
+
+      - name: Start crond service
+        service:
+          name: crond
+          state: started
+
+      - name: Install ftp and vsftpd
+        yum:
+          name:
+            - ftp
+            - vsftpd
+          state: installed
+    when: ansible_distribution == 'Debian'

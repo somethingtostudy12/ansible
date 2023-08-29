@@ -1,0 +1,5 @@
+myuser: al1
+mypass: qwerty
+mypkg: 
+  - httpd
+  - vsftpd

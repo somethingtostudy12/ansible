@@ -1,0 +1,30 @@
+- name: Deploying web server
+  hosts: all
+  gather_facts: true
+  tasks:
+   
+      - name: Creating a directory
+        file:
+           path: /tmp/abcde
+           state: directory
+        tags: folders
+
+      - name: Copy /etc/fstab to /tmp/data
+        copy:
+          src: /etc/fstab
+          dest: /tmp/data
+        tags: backup
+
+      - name: Start crond service
+        service:
+          name: crond
+          state: started
+        tags: status
+
+      - name: Install ftp and vsftpd
+        yum:
+          name:
+            - ftp
+            - vsftpd
+          state: installed
+        tags: pkg

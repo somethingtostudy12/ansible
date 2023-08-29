@@ -1,0 +1,14 @@
+# Playbooks for defining varibles
+# Varibles defined in inventory but in host and group folders 
+
+- name: Playbook for Learning Variables
+  hosts: all
+  tasks:
+  - name: Create User
+    user:
+        name: "{{ myuser }}"
+        password: "{{ mypass | password_hash('sha512') }}"
+  - name: Install package
+    package:
+      name: "{{ mypkg }}"
+      state: installed

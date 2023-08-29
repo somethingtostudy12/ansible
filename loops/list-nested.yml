@@ -1,0 +1,10 @@
+myusers:
+      - user21
+      - user22
+      - user23
+      - user24
+mygroups:
+      - unix
+      - db
+      - admin
+

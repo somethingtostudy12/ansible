@@ -1,0 +1,18 @@
+### Register Variable is variable you create when you need some details which are not available in setup module like some command output
+
+- hosts: all
+  gather_facts: true
+  tasks:
+  
+  - name: check H/W Mode
+    shell: uname -m
+    register: xyz
+
+  - debug:
+       var: xyz.stdout
+
+  - name: store the value in a file
+    copy:
+      content: "{{ xyz.stdout }}"
+      dest: /etc/motd
+

@@ -1,0 +1,18 @@
+- name: Example of register variables in condition
+  hosts: all
+  tasks:
+    - name: Check file existence on servers
+      stat:
+        path: /etc/fstab
+      register: xyz
+
+    - debug:
+        var: xyz
+
+
+    - name: Insert line in that file
+      lineinfile:
+        line: "### Lines added by playbook"
+        dest: /etc/fstab
+
+      when: xyz.stat.exists == false

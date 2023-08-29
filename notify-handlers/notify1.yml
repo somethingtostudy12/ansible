@@ -1,0 +1,28 @@
+- name: Example of Notify and Handlers
+  hosts: all
+  tasks:
+
+  - name: Install application
+    yum:
+      name: postfix
+      state: installed
+
+  - name: Deploy the application
+    copy:
+      src: /root/notify-handlers/main.cf
+      dest: /etc/postfix
+    notify: service-restart
+
+  - name: Create a directory
+    file: 
+      path: /tmp/abcd
+      state: directory
+
+
+  handlers:
+ 
+    - name: Restart application service
+      service: 
+         name: postfix
+         state: restarted
+      listen: service-restart

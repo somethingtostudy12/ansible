@@ -1,0 +1,35 @@
+- name: Deploying Tasks on ROCKY9 Servers
+  hosts: rocky9
+  gather_facts: no
+  tasks:
+
+    - name: Creating a Directory
+      file:
+          path: /tmp/data1
+          state: directory
+
+
+    - name: Copying of files
+      copy:
+          src: /etc/motd
+          dest: /tmp/
+
+
+
+- name: Deploying Tasks on RHEL7 Servers
+  hosts: rhel7
+  gather_facts: no
+  tasks:
+
+    - name: Restarting a Service
+      service:
+          name: crond
+          state: restarted
+
+
+    - name: Installation of Packages 
+      yum:
+        name:
+         - ftp
+         - vsftpd
+        state: installed

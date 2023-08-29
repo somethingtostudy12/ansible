@@ -1,0 +1,18 @@
+### Prompt variable is used when you want user to give inputs
+
+- name: create user and reset password of the user
+  hosts: all
+  vars_prompt:
+    - name: myuser
+      prompt: 'Please enter your username:'
+      private: no
+
+    - name: mypass
+      prompt: 'Please give your password:'
+      private: yes
+
+  tasks:
+    - name: Creat user and set pasword
+      user:
+        name: "{{ myuser}}"
+        password: "{{ mypass | password_hash('sha512') }}"

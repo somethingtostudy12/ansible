@@ -1,0 +1,30 @@
+#### debug is used when you want to see varibles values during running playbook
+#### We will use a file for varibles defining
+
+- name: Playbook for Learning Variables
+  hosts: all
+  vars_files:
+       - /root/playbooks2/p3-vars.yml
+  tasks:
+  - debug:
+      msg: "{{ pkg }} and {{ mypass }} and {{ webroot }} and {{ myurl }}"  
+  - name: Install package  
+    yum:
+      name: "{{ pkg }}"
+      state: installed
+
+  - name: Create User
+    user:
+        name: "{{ myuser }}"
+        password: "{{ mypass | password_hash('sha512') }}"
+
+  - name: Create folder
+    file:
+      path: "{{ webroot }}/vijay"
+      state: directory
+
+
+  - name: Download index file
+    get_url:
+      url: "{{ myurl }}"
+      dest: /tmp
